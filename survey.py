@@ -64,7 +64,11 @@ placeholder = st.empty()
 #if not state.form_filled:
 with placeholder.container():
     with st.form("demographics"):
+
         st.subheader("Tell us a bit about you")
+
+        st.write('We are conducting research about the ways in which people of all backgrounds are using AI. To understand if there are differences in the ways different people are using AI chatbots and other technologies, we are running a survey. ')
+        st.write('Any data published will be fully anonymised. ')
 
         jobs = ['Manager or business owner (those who plan, direct, coordinate and evaluate the overall activities of enterprises, governments and other organizations)', 'Professionals or highly skilled workers (those who increase the existing stock of knowledge or teach about it in a systematic manner, e.g. engineer, doctor, teacher, lawyer)', 'Technicians and associate professionals (those who apply scientific or artistic concepts and operational methods, e.g. secretaries, fitness workers, lab technicians)', 'Clerical support workers (those who perform clerical duties such as organizing, storing, computing and retrieving information)',
                 'Service and sales workers (whose who provide personal and protective services related to travel, housekeeping, catering, personal care, protection against fire and unlawful acts; or sell goods)', 'Skilled agricultural, forestry and fishery workers (those harvest, grow, breed, or produce a variety of animal husbandry products)', 'Craft related trades workers (those who produce or process foodstuffs, textiles, wooden, metal and other articles, including handicraft goods, and apply specific technical and practical knowledge and skills to construct and maintain buildings)', 
@@ -186,17 +190,17 @@ with placeholder.container():
         #ai_other = st.text_input("If you selected 'Other', please specify which:", key = 'ai')
 
 
-        llm_use = st.multiselect('Which of these AI chatbots do you use?', llms, placeholder=placeholder)
+        llm_use = st.multiselect('If you use them, which of these AI chatbots do you use? If you have never used them, leave blank.', llms, placeholder=placeholder)
 
         llm_other = st.text_input("If you selected 'Other', please specify which:", key = 'llms')
         
-        usecases = st.multiselect("Have you ever used ChatGPT (or other similar chatbots) for any of the following? You can select multiple.", tasks, placeholder=placeholder)
+        usecases = st.multiselect("If you have used AI chatbots, have you ever them for any of the following? You can select multiple. If you have never used them, leave blank.", tasks, placeholder=placeholder)
         
         use_other = st.text_input("If you selected 'Other', please specify which:", key = 'use')
 
-        contexts = st.multiselect("In which of the following contexts have you ever used ChatGPT (or other similar chatbots)? ", ['Work', 'School/University', 'Entertainment', 'Learning', 'Personal', 'Creative or artistic', 'Technical', 'Other (specify)'], placeholder=placeholder)
+        contexts = st.multiselect("In which of the following contexts have you ever used ChatGPT (or other similar chatbots)? If you have never used them, leave blank.", ['Work', 'School/University', 'Entertainment', 'Learning', 'Personal', 'Creative or artistic', 'Technical', 'Other (specify)'], placeholder=placeholder)
 
-        st.write("Next, we want to know more about the sorts of things you use AI for. Note that this form is anonymous -- we will not associate this information with your prolific ID.")
+        st.write("Next, we want to know more about the sorts of things you use AI for. Note that this form is anonymous -- we will not associate this information with your prolific ID. If you have never used them, leave blank.")
 
         st.write('Provide us with the last ten prompts you used for your chosen AI chatbot.')
 
@@ -211,17 +215,21 @@ with placeholder.container():
         prompt9 = st.text_input("Prompt", key = 'p9')
         prompt10 = st.text_input("Prompt", key = 'p10')
 
-        comments = st.text_area(label='Do you have any other comments?')
+        comments = st.text_area(label='Do you have any other comments, about this survey or about AI chatbots?')
 
         # Every form must have a submit button.
         submitted = st.form_submit_button("Submit")#, on_click=populate_annotations)
         if submitted:
-            #if not gender or not age or not nationality or not language or not education or not literacy or not use_ai:
-            #    st.warning("Please complete the form")
-            #else:
-            write_to_file([annotator_id, session_id, gender, age, nationality, language, ethnicity, ethn_free, marital, language, religion, religion_other, education, ses, home, employment, mum_education, dad_education, ';'.join(mother_occ), ';'.join(father_occ), ';'.join(hobbies), hobbies_other, ';'.join(tech), tech_other, ';'.join(know_nlp), ';'.join(use_nlp), ';'.join(would_nlp), ';'.join(use_ai), know_other, use_nlp_other, would_other, ';'.join(llm_use), llm_other, ''.join(usecases), use_other, ''.join(contexts),  prompts, comments], url)
-            placeholder.empty()
-            state.form_filled = True
+            required = [gender, age, nationality, language, ethnicity,  marital, language, religion, education, ses, home, employment, mum_education, dad_education, mother_occ, father_occ, hobbies,  tech, know_nlp, use_nlp, would_nlp, use_ai]
+            cond = [llm_use, usecases, contexts,  prompt1, prompt2, prompt3, prompt4, prompt5, prompt6, prompt7, prompt8, prompt9, prompt10]
+            if None in required:
+                st.warning("Please complete all required fields in the form.")
+            elif use_ai == 'Never' and any(cond):
+                st.write('Only complete these sections if you have used AI chatbots.')
+            else:
+                write_to_file([annotator_id, session_id, gender, age, nationality, language, ethnicity, ethn_free, marital, language, religion, religion_other, education, ses, home, employment, mum_education, dad_education, ';'.join(mother_occ), ';'.join(father_occ), ';'.join(hobbies), hobbies_other, ';'.join(tech), tech_other, ';'.join(know_nlp), ';'.join(use_nlp), ';'.join(would_nlp), ';'.join(use_ai), know_other, use_nlp_other, would_other, ';'.join(llm_use), llm_other, ''.join(usecases), use_other, ''.join(contexts),  prompt1, prompt2, prompt3, prompt4, prompt5, prompt6, prompt7, prompt8, prompt9, prompt10, comments], url)
+                placeholder.empty()
+                state.form_filled = True
 
 
 
