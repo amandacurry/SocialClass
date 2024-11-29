@@ -71,31 +71,35 @@ with placeholder.container():
         age = st.radio('Age', ['18-24', '25-34' , '35-44', '45-54', '55-60', '60+'], None, key='_age', horizontal=True)
 
         nationality = st.selectbox('Nationality', options = ['United States', 'Canada', 'United Kingdom', 'Ireland', 'Australia', 'Other'], index = None)
+ 
+        ethnicity = st.radio('What is your ethnicity?', options = ['American Indian or Alaskan Native', 'Asian / Pacific Islander', 'Black or African American', 'Hispanic', 'White / Caucasian', 'Multiple/Other. Please specify', 'Prefer not to say'],index = None, horizontal=True)
+        ethn_free = st.text_input('If you selected other, please specify:', key = 'ethnic')
 
-        ethnicity = st.radio('What is your ethnicity?', options = ['American Indian or Alaskan Native', 'Asian / Pacific Islander', 'Black or African American', 'Hispanic', 'White / Caucasian', 'Multiple/Other. Please specify'],index = None, horizontal=True)
-
-        marital = st.radio('What is your marital status?', options = ['Married', 'Cohabitating', 'Bereaved', 'Divorced', 'Single'], index=None, horizontal = True)
+        marital = st.radio('What is your marital status?', options = ['Married', 'Cohabitating', 'Bereaved', 'Divorced', 'Single', 'Prefer not to say'], index=None, horizontal = True)
         
         language = st.selectbox('First language', index=None, options = ['English', 'Spanish', 'German', 'Chinese', 'French', 'Arabic', 'Other'])
         
-        education = st.selectbox('Current education level', options = ['High school or below', 'Undergraduate degree', 'Graduate degree', 'Doctorate or above'], index=None)
+        literacy = st.selectbox('Do you have a religious affiliation? If so, which one?', options = ['Christian', 'Muslim', 'Jewish', 'Other', 'None', 'Prefer not to say'], index = None)
+
+
+        education = st.selectbox('Current education level', options = ['High school or below', 'Undergraduate degree', 'Graduate degree', 'Doctorate or above', 'Prefer not to say'], index=None)
         
-        ses = st.radio('In terms of wealth, where would you place yourself in the socioeconomic ladder?', options = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], index = None, horizontal = True)
+        ses = st.radio('In terms of wealth, where would you place yourself in the socioeconomic ladder?', options = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'Prefer not to say'], index = None, horizontal = True)
         st.image("scale.png", caption="Macarthur scale", width = 350)
-
-        literacy = st.selectbox('Do you have a religious affiliation? If so, which one?', options = ['Christian', 'Muslim', 'Jewish', 'Other', 'None'], index = None)
-        st.write("You selected:", literacy)
-
-        # Create text input for user entry
-        if literacy == 'Other': 
-            otherOption = st.text_input("Enter your other option...")
+       
+        home = st.radio("Do you own or rent your home?", ["Rent", "Own", "Prefer not to say"], index=None, horizontal=True)
 
         employment_options = ['Employed full time', 'Employed part time', 'Self-employed full time', 'Self-employed part time', 'Not employed, but looking for work',
                                 'Not employed and not looking for work', 'Not employed, unable to work due to a disability or illness', 'Retired', 
                                 'Student', 'Stay-at-home spouse or partner']
-        employment = st.selectbox('What is your current employment status?', employment_options, index=None)
+        employment = st.selectbox('What is your current employment status?', options = employment_options, index=None)
+        mum_education = st.selectbox('What was the highest level of education achieved by your mother?', options = ['High school or below', 'Undergraduate degree', 'Graduate degree', 'Doctorate or above', 'Prefer not to say'], index=None)
+        dad_education = st.selectbox('What was the highest level of education achieved by your father?', options = ['High school or below', 'Undergraduate degree', 'Graduate degree', 'Doctorate or above', 'Prefer not to say'], index=None)
 
-        #hobbies = st.text_input('What do you do in your spare time?')
+        list_hobbies = ["Listen to jazz", "Listen to classical music", "Listen to rock/indie music", "Listen to hiphop and rap", "Go to gigs", 
+                        "Go to the opera", "Visit to stately homes", "Exercise", "Use social media", "Go to museums and galleries", 
+                        "Do arts and crafts", "Watch dance or ballet", "Attend football matches", "Watch sports", "Watch dance or ballet", "Other"]
+        hobbies = st.multiselect("What sorts of things do you do in your free time? You may select more than one.", list_hobbies)
 
         
         st.markdown('***')
@@ -112,8 +116,9 @@ with placeholder.container():
 
         st.write(instructions)
 
-        tech = st.radio('Which digital technologies do you have access to on a daily basis?', options = ['Laptop', 'Smartphone', 'Tablet', 'Smartwatch', 'Other'])
-        
+        tech = st.multiselect('Which digital technologies do you have access to on a daily basis? Select all that apply.', options = ['Laptop', 'Smartphone', 'Tablet', 'Smartwatch', 'Other'])
+        tech_other = st.text_input("If you selected 'Other', please specify which:", key = 'tech')
+
 
 
         nlp = ['Spell checker (i.e., correcting misspellings)', 'Grammar checker (i.e., correcting grammar mistakes)', 'E-mail spam detection (i.e., automatically send spam e-mails to your Trash folder)',
@@ -149,40 +154,49 @@ with placeholder.container():
             "Other (specify)"
         ]
 
+
         llms = ['Character.AI', 'ChatGPT', 'Claude', 'GitHub Copilot', 'Google Bard', 'Google Gemini', 'Grok', 'HuggingChat', 'Jasper', 'Meta Llama 2', 'Microsoft Bing AI', 'Pi', 'Poe', 'Perplexity', 'Snapchat My AI', 'Other', 'None of these']
 
         
         know_nlp = st.multiselect("Which of the following language technologies have you heard about?", nlp)
-        use_nlp = st.multiselect("Which of the following language technologies have you used?", nlp)
-        would_nlp = st.multiselect("Below is a list of some common language technologies. Please check every one that you would find useful, but do not use because of scarce performance", nlp)
+        know_other = st.text_input("If you selected 'Other', please specify which:", key = 'know')
 
+        use_nlp = st.multiselect("Which of the following language technologies have you used?", nlp)
+        use_nlp_other = st.text_input("If you selected 'Other', please specify which:", key = 'use_nlp')
+
+        would_nlp = st.multiselect("Below is a list of some common language technologies. Please check every one that you would find useful, but do not use because of scarce performance", nlp)
+        would_other = st.text_input("If you selected 'Other', please specify which:", key = 'would')
 
 
         use_ai = st.select_slider("How often do you use AI chatbots like chatGPT?", options=["Every day", "Nearly every day", "Sometimes", "Rarely", "Never"], value = None)
+        #ai_other = st.text_input("If you selected 'Other', please specify which:", key = 'ai')
+
 
         llm_use = st.multiselect('Which of these AI chatbots do you use?', llms)
 
-        usecases = st.multiselect("Have you ever used ChatGPT (or other similar chatbots) for any of the following?", tasks)
+        llm_other = st.text_input("If you selected 'Other', please specify which:", key = 'llms')
+        
+        usecases = st.multiselect("Have you ever used ChatGPT (or other similar chatbots) for any of the following? You can select multiple.", tasks)
+        
+        use_other = st.text_input("If you selected 'Other', please specify which:", key = 'use')
 
         contexts = st.multiselect("In which of the following contexts have you ever used ChatGPT (or other similar chatbots)? ", ['Work', 'School/University', 'Entertainment', 'Learning', 'Personal', 'Creative or artistic', 'Technical', 'Other (specify)'])
-        
-        
-        
+
         st.write("Next, we want to know more about the sorts of things you use AI for. Note that this form is anonymous -- we will not associate this information with your prolific ID.")
 
-        prompts = st.text_area(label='Provide us with the last ten prompts you used for your chosen AI chatbot. One prompt per line:')
+        prompts = st.text_area(label='Provide us with the last ten prompts you used for your chosen AI chatbot. One prompt per line with a semicolon after the prompt:')
         
         comments = st.text_area(label='Do you have any other comments?')
 
         # Every form must have a submit button.
         submitted = st.form_submit_button("Submit")#, on_click=populate_annotations)
         if submitted:
-            if not gender or not age or not nationality or not language or not education or not literacy or not use_ai:
-                st.warning("Please complete the form")
-            else:
-                write_to_file([annotator_id, session_id, gender, age, nationality, language, education, literacy, use_ai, prompts, comments], url)
-                placeholder.empty()
-                state.form_filled = True
+            #if not gender or not age or not nationality or not language or not education or not literacy or not use_ai:
+            #    st.warning("Please complete the form")
+            #else:
+            write_to_file([annotator_id, session_id, gender, age, nationality, language, ethnicity, ethn_free, marital, language, literacy, education, ses, home, employment, mum_education, dad_education, ''.join(hobbies), ''.join(tech), tech_other, ''.join(know_nlp), ''.join(use_nlp), ''.join(would_nlp), ''.join(use_ai), know_other, use_nlp_other, would_other, ''.join(llm_use), llm_other, ''.join(usecases), use_other, ''.join(contexts),  prompts, comments], url)
+            placeholder.empty()
+            state.form_filled = True
 
 
 
