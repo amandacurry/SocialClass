@@ -8,7 +8,7 @@ from datetime import datetime
 from google.oauth2 import service_account
 from shillelagh.backends.apsw.db import connect
 import random
-
+import yaml
 
 st.set_page_config(
     page_title="Survey on LLM usage",
@@ -32,7 +32,7 @@ url = "https://docs.google.com/spreadsheets/d/1mHD3UA-zf6zSgChM8pQn1E7SENIGmBzxv
 
 client=gspread.authorize(credentials)
 
-
+countries = ['United States', 'United Kingdom', 'China', 'Canada', 'United Arab Emirates', 'Australia', 'Andorra', 'Afghanistan', 'Antigua and Barbuda', 'Anguilla', 'Albania', 'Armenia', 'Angola', 'Antarctica', 'Argentina', 'American Samoa', 'Austria', 'Aruba', 'Azerbaijan', 'Bosnia and Herzegovina', 'Barbados', 'Bangladesh', 'Belgium', 'Burkina Faso', 'Bulgaria', 'Bahrain', 'Burundi', 'Benin', 'Saint Barthelemy', 'Bermuda', 'Brunei', 'Bolivia', 'Brazil', 'Bahamas, The', 'Bhutan', 'Bouvet Island', 'Botswana', 'Belarus', 'Belize', 'Cocos (Keeling) Islands', 'Congo, Democratic Republic of the', 'Central African Republic', 'Congo, Republic of the', 'Switzerland', 'Cote d\'Ivoire', 'Cook Islands', 'Chile', 'Cameroon', 'Colombia', 'Costa Rica', 'Cuba', 'Cape Verde', 'Curacao', 'Christmas Island', 'Cyprus', 'Czech Republic', 'Germany', 'Djibouti', 'Denmark', 'Dominica', 'Dominican Republic', 'Algeria', 'Ecuador', 'Estonia', 'Egypt', 'Western Sahara', 'Eritrea', 'Spain', 'Ethiopia', 'Finland', 'Fiji', 'Falkland Islands (Islas Malvinas)', 'Micronesia, Federated States of', 'Faroe Islands', 'France', 'France, Metropolitan', 'Gabon', 'Grenada', 'Georgia', 'French Guiana', 'Guernsey', 'Ghana', 'Gibraltar', 'Greenland', 'Gambia, The', 'Guinea', 'Guadeloupe', 'Equatorial Guinea', 'Greece', 'South Georgia and the Islands', 'Guatemala', 'Guam', 'Guinea-Bissau', 'Guyana', 'Hong Kong (SAR China)', 'Heard Island and McDonald Islands', 'Honduras', 'Croatia', 'Haiti', 'Hungary', 'Indonesia', 'Ireland', 'Israel', 'Isle of Man', 'India', 'British Indian Ocean Territory', 'Iraq', 'Iran', 'Iceland', 'Italy', 'Jersey', 'Jamaica', 'Jordan', 'Japan', 'Kenya', 'Kyrgyzstan', 'Cambodia', 'Kiribati', 'Comoros', 'Saint Kitts and Nevis', 'Korea, South', 'Kuwait', 'Cayman Islands', 'Kazakhstan', 'Laos', 'Lebanon', 'Saint Lucia', 'Liechtenstein', 'Sri Lanka', 'Liberia', 'Lesotho', 'Lithuania', 'Luxembourg', 'Latvia', 'Libya', 'Morocco', 'Monaco', 'Moldova', 'Montenegro', 'Saint Martin', 'Madagascar', 'Marshall Islands', 'Macedonia', 'Mali', 'Burma', 'Mongolia', 'Macau (SAR China)', 'Northern Mariana Islands', 'Martinique', 'Mauritania', 'Montserrat', 'Malta', 'Mauritius', 'Maldives', 'Malawi', 'Mexico', 'Malaysia', 'Mozambique', 'Namibia', 'New Caledonia', 'Niger', 'Norfolk Island', 'Nigeria', 'Nicaragua', 'Netherlands', 'Norway', 'Nepal', 'Nauru', 'Niue', 'New Zealand', 'Oman', 'Panama', 'Peru', 'French Polynesia', 'Papua New Guinea', 'Philippines', 'Pakistan', 'Poland', 'Saint Pierre and Miquelon', 'Pitcairn Islands', 'Puerto Rico', 'Gaza Strip', 'West Bank', 'Portugal', 'Palau', 'Paraguay', 'Qatar', 'Reunion', 'Romania', 'Serbia', 'Russia', 'Rwanda', 'Saudi Arabia', 'Solomon Islands', 'Seychelles', 'Sudan', 'Sweden', 'Singapore', 'Saint Helena, Ascension, and Tristan da Cunha', 'Slovenia', 'Svalbard', 'Slovakia', 'Sierra Leone', 'San Marino', 'Senegal', 'Somalia', 'Suriname', 'South Sudan', 'Sao Tome and Principe', 'El Salvador', 'Sint Maarten', 'Syria', 'Swaziland', 'Turks and Caicos Islands', 'Chad', 'French Southern and Antarctic Lands', 'Togo', 'Thailand', 'Tajikistan', 'Tokelau', 'Timor-Leste', 'Turkmenistan', 'Tunisia', 'Tonga', 'Turkey', 'Trinidad and Tobago', 'Tuvalu', 'Taiwan, Province of China', 'Tanzania', 'Ukraine', 'Uganda', 'United States Minor Outlying Islands', 'Uruguay', 'Uzbekistan', 'Holy See (Vatican City)', 'Saint Vincent and the Grenadines', 'Venezuela', 'British Virgin Islands', 'Virgin Islands', 'Vietnam', 'Vanuatu', 'Wallis and Futuna', 'Samoa', 'Kosovo', 'Yemen', 'Mayotte', 'South Africa', 'Zambia', 'Zimbabwe']
 def write_to_file(row, sheet_url):
     #sheet_url = collected_url #st.secrets["private_gsheets_url"] #this information should be included in streamlit secret
     sheet = client.open_by_url(sheet_url).sheet1
@@ -82,42 +82,50 @@ with placeholder.container():
         
         age = st.radio('Age*', ['18-24', '25-34' , '35-44', '45-54', '55-60', '60+'], None, key='_age', horizontal=True)
 
-        nationality = st.selectbox('Nationality', options = ['United States', 'Canada', 'United Kingdom', 'Ireland', 'Australia', 'Other'], index = None)
+        nationality = st.selectbox('Nationality*', options = countries, index = None)
+
  
-        ethnicity = st.multiselect('What is your ethnicity? You may select more than one.', options = ['American Indian or Alaskan Native', 'Asian / Pacific Islander', 'Black or African American', 'Hispanic', 'White / Caucasian', 'Multiple/Other. Please specify', 'Prefer not to say'], placeholder=placeholder)
+        ethnicity = st.multiselect('What is your ethnicity? You may select more than one.*', options = ['American Indian or Alaskan Native', 'Asian / Pacific Islander', 'Black or African American', 'Hispanic', 'White / Caucasian', 'Multiple/Other. Please specify', 'Prefer not to say'], placeholder=placeholder)
         ethn_free = st.text_input('If you selected other, please specify:', key = 'ethnic')
 
-        marital = st.radio('What is your marital status?', options = ['Married', 'Cohabitating', 'Bereaved', 'Divorced', 'Single', 'Prefer not to say'], index=None, horizontal = True)
-        
-        language = st.selectbox('First language', index=None, options = ['English', 'Spanish', 'German', 'Chinese', 'French', 'Arabic', 'Other'])
-        
-        religion = st.selectbox('Do you have a religious affiliation? If so, which one?', options = ['Christian', 'Muslim', 'Jewish',  'Buddhist', 'Other, please specify.', 'None', 'Prefer not to say'], index = None)
+        marital = st.radio('What is your marital status?*', options = ['Married', 'Cohabitating', 'Bereaved', 'Divorced', 'Single', 'Other (Please Specify)', 'Prefer not to say'], index=None, horizontal = True)
+        marital_free = st.text_input('If you selected other, please specify:', key = 'mar')
+
+        language = st.selectbox('What is your first language?*', index=None, options = ['English', 'Spanish', 'German', 'Chinese', 'French', 'Arabic', 'Other (Please Specify)'])
+        language_free = st.text_input('If you selected other, please specify:', key = 'lang')
+
+        religion = st.selectbox('Do you have a religious affiliation? If so, which one?*', options = ['Christian', 'Muslim', 'Jewish',  'Buddhist', 'Other, please specify.', 'None', 'Prefer not to say'], index = None)
         religion_other = st.text_input('If you selected other, please specify:', key = 'religion')
 
 
-        education = st.selectbox('Current education level', options = ['High school or below', 'Undergraduate degree', 'Graduate degree', 'Doctorate or above', 'Prefer not to say'], index=None)
+        education = st.selectbox('Current education level* ', options = ['High school or below', 'Undergraduate degree', 'Graduate degree', 'Doctorate or above', 'Prefer not to say'], index=None)
         
-        ses = st.radio('In terms of wealth, where would you place yourself in the socioeconomic ladder?', options = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'Prefer not to say'], index = None, horizontal = True)
+        ses = st.radio('In terms of wealth, where would you place yourself in the socioeconomic ladder?*', options = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'Prefer not to say'], index = None, horizontal = True)
         st.image("scale.png", caption="Macarthur scale", width = 350)
        
-        home = st.radio("Do you own or rent your home?", ["Rent", "Own", "Prefer not to say"], index=None, horizontal=True)
-
+        home = st.radio("Do you own or rent your home?*", ["Rent", "Own", "Other (Please specify)", "Prefer not to say"], index=None, horizontal=True)
+        home_free = st.text_input('If you selected other, please specify:', key = 'home_free')
         employment_options = ['Employed full time', 'Employed part time', 'Self-employed full time', 'Self-employed part time', 'Not employed, but looking for work',
                                 'Not employed and not looking for work', 'Not employed, unable to work due to a disability or illness', 'Retired', 
-                                'Student', 'Stay-at-home spouse or partner']
-        employment = st.multiselect('What is your current employment status? You may select all that apply.', placeholder=placeholder, options = employment_options)
-        mum_education = st.selectbox('What was the highest level of education achieved by your mother?', options = ['High school or below', 'Undergraduate degree', 'Graduate degree', 'Doctorate or above', 'Prefer not to say'], index=None)
-        dad_education = st.selectbox('What was the highest level of education achieved by your father?', options = ['High school or below', 'Undergraduate degree', 'Graduate degree', 'Doctorate or above', 'Prefer not to say'], index=None)
+                                'Student', 'Stay-at-home spouse or partner', 'Prefer not to say']
+        
+        employment = st.multiselect('What is your current employment status? You may select all that apply.*', placeholder=placeholder, options = employment_options)
 
-        mother_occ = st.multiselect("What is/was your mother's occupation? You may select more than one.", options = jobs, placeholder=placeholder)
-        father_occ = st.multiselect("What is/was your father's occupation? You may select more than one.", options = jobs, placeholder=placeholder)
+        mum_education = st.selectbox('What was the highest level of education achieved by your mother?*', options = ['High school or below', 'Undergraduate degree', 'Graduate degree', 'Doctorate or above', 'Prefer not to say'], index=None)
+        dad_education = st.selectbox('What was the highest level of education achieved by your father?*', options = ['High school or below', 'Undergraduate degree', 'Graduate degree', 'Doctorate or above', 'Prefer not to say'], index=None)
+
+        mother_occ = st.multiselect("What is/was your mother's occupation? You may select more than one.*", options = jobs, placeholder=placeholder)
+        father_occ = st.multiselect("What is/was your father's occupation? You may select more than one.*", options = jobs, placeholder=placeholder)
 
 
         list_hobbies = ["Listen to jazz", "Listen to classical music", "Listen to rock/indie music", "Listen to hiphop and rap", "Go to gigs", 
                         "Go to the opera", "Visit to stately homes", "Exercise", "Use social media", "Go to museums and galleries", 
-                        "Do arts and crafts", "Watch dance or ballet", "Attend football matches", "Watch sports", "Other"]
-        hobbies = st.multiselect("What sorts of things do you do in your free time? You may select more than one.", list_hobbies, placeholder=placeholder)
+                        "Do arts and crafts", "Watch dance or ballet", "Attend football matches", "Watch sports", "Other (Please specify)"]
+        hobbies = st.multiselect("What sorts of things do you do in your free time? You may select more than one.*", list_hobbies, placeholder=placeholder)
         hobbies_other = st.text_input('If you selected other, please specify:', key = 'hobbies')
+
+        
+
 
         
         st.markdown('***')
@@ -147,7 +155,7 @@ with placeholder.container():
                 'Dialog technology (e.g. chatbots that communicate with you)',
                 'Speech-to-Text (i.e. a computer transcribing your spoken language to written language)',
                 'Text-to-Speech (i.e, computers being able to read out loud written language)',
-                 'Reading text from scanned documents (i.e. “Optical character recognition” or OCR. Given an image representing printed text, determine the corresponding text.)']
+                 'Reading text from scanned documents (i.e. “Optical character recognition” or OCR. Given an image representing printed text, determine the corresponding text.)', 'Other (specify)']
 
 
         tasks = [
@@ -220,7 +228,7 @@ with placeholder.container():
         # Every form must have a submit button.
         submitted = st.form_submit_button("Submit")#, on_click=populate_annotations)
         if submitted:
-            required = [gender, age, nationality, language, ethnicity,  marital, language, religion, education, ses, home, employment, mum_education, dad_education, mother_occ, father_occ, hobbies,  tech, know_nlp, use_nlp, would_nlp, use_ai]
+            required = [gender, age, nationality, language, ethnicity,  marital, marital_free, language, language_free, religion, education, ses, home, home_free, employment, mum_education, dad_education, mother_occ, father_occ, hobbies,  tech, know_nlp, use_nlp, would_nlp, use_ai]
             cond = [llm_use, usecases, contexts,  prompt1, prompt2, prompt3, prompt4, prompt5, prompt6, prompt7, prompt8, prompt9, prompt10]
             if None in required:
                 st.warning("Please complete all required fields in the form.")
