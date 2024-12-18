@@ -208,7 +208,7 @@ with placeholder.container():
         contexts_other = st.text_input("If you selected 'Other', please specify which:", key = 'context')
         st.write("Next, we want to know more about the sorts of things you use AI for. Note that this form is anonymous -- we will not associate this information with your prolific ID. If you have never used them, leave blank.")
 
-        st.write('Provide us with the last ten prompts you used for your chosen AI chatbot. You will receive a bonus for each additional prompt you provide. Responses will be manually checked. ')
+        st.write('If you can, please provide us with the last ten questions or requests you used for your chosen AI chatbot. Preferably, copy and paste the questions directly from the conversation. You will receive a bonus for each additional prompt you provide. Responses will be manually checked. ')
 
         prompt1 = st.text_input("Prompt:*", key = 'p1')
         prompt2 = st.text_input("Prompt*", key = 'p2')
@@ -226,7 +226,7 @@ with placeholder.container():
         # Every form must have a submit button.
         submitted = st.form_submit_button("Submit")#, on_click=populate_annotations)
         if submitted:
-            required = [gender, age, nationality, language, ethnicity,  marital, marital_free, language, language_free, religion, education, ses, home, home_free,  mum_education, dad_education, employment, self_emplo, mother_occ, father_occ, hobbies,  tech, know_nlp, use_nlp, would_nlp, use_ai]
+            required = [gender, age, nationality, language, ethnicity,  marital, marital_free, language, language_free, religion, education, ses, home,  mum_education, dad_education, employment, self_emplo, mother_occ, father_occ, hobbies,  tech, know_nlp, use_nlp, would_nlp, use_ai]
             cond = [llm_use, usecases, contexts,  prompt1, prompt2, prompt3, prompt4, prompt5, prompt6, prompt7, prompt8, prompt9, prompt10]
             if None in required:
                 st.warning("Please complete all required fields in the form.")
@@ -237,7 +237,7 @@ with placeholder.container():
             elif use_ai == "Sometimes" and not prompt1:
                 st.write("Please provide an example of a prompt. You will receive a bonus for each additional answer. Responses will be manually checked.")
             else:
-                write_to_file([annotator_id, session_id, gender, age, ';'.join(nationality), ';'.join(language), language_free, ';'.join(ethnicity), ethn_free, marital, religion, religion_other, education, ses, home, ';'.join(employment), mum_education, dad_education, ';'.join(self_emplo), ';'.join(mother_occ), ';'.join(father_occ), ';'.join(hobbies), hobbies_other, ';'.join(tech), tech_other, ';'.join(know_nlp), ';'.join(use_nlp), ';'.join(would_nlp), use_ai, know_other, use_nlp_other, would_other, ';'.join(llm_use), llm_other, ';'.join(usecases), use_other, ';'.join(contexts), contexts_other, prompt1, prompt2, prompt3, prompt4, prompt5, prompt6, prompt7, prompt8, prompt9, prompt10, comments], url)
+                write_to_file([annotator_id, session_id, gender, age, ';'.join(nationality), ';'.join(language), language_free, ';'.join(ethnicity), ethn_free, marital, religion, religion_other, education, ses, home, home_free,  employment, mum_education, dad_education, ';'.join(self_emplo), ';'.join(mother_occ), ';'.join(father_occ), ';'.join(hobbies), hobbies_other, ';'.join(tech), tech_other, ';'.join(know_nlp), ';'.join(use_nlp), ';'.join(would_nlp), use_ai, know_other, use_nlp_other, would_other, ';'.join(llm_use), llm_other, ';'.join(usecases), use_other, ';'.join(contexts), contexts_other, prompt1, prompt2, prompt3, prompt4, prompt5, prompt6, prompt7, prompt8, prompt9, prompt10, comments], url)
                 placeholder.empty()
                 state.form_filled = True
 
