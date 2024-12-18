@@ -81,7 +81,7 @@ with placeholder.container():
         
         age = st.radio('Age*', ['18-24', '25-34' , '35-44', '45-54', '55-60', '60+'], None, key='_age', horizontal=True)
 
-        nationality = st.multiselect('Nationality*', options = countries, placeholder=placeholder)
+        nationality = st.multiselect('Nationality (You may select multiple):*', options = countries, placeholder=placeholder)
 
  
         ethnicity = st.multiselect('What is your ethnicity? You may select more than one.*', options = ['American Indian or Alaskan Native', 'Asian / Pacific Islander', 'Black or African American', 'Hispanic', 'White / Caucasian', 'Other. Please specify', 'Prefer not to say'], placeholder=placeholder)
@@ -90,7 +90,7 @@ with placeholder.container():
         marital = st.radio('What is your marital status?*', options = ['Married', 'Cohabitating', 'Bereaved', 'Divorced', 'Single', 'Other (Please Specify)', 'Prefer not to say'], index=None, horizontal = True)
         marital_free = st.text_input('If you selected other, please specify:', key = 'mar')
 
-        language = st.multiselect('What is your first language?*', options = ['English', 'Spanish', 'German', 'Chinese', 'French', 'Arabic', 'Other (Please Specify)'], placeholder=placeholder)
+        language = st.multiselect('What is your first language? You may select more than one, if applicable.*', options = ['English', 'Spanish', 'German', 'Chinese', 'French', 'Arabic', 'Other (Please Specify)'], placeholder=placeholder)
         language_free = st.text_input('If you selected other, please specify:', key = 'lang')
 
         religion = st.selectbox('Do you have a religious affiliation? If so, which one?*', options = ['Christian', 'Muslim', 'Jewish',  'Buddhist', 'Other, please specify.', 'None', 'Prefer not to say'], index = None)
@@ -98,8 +98,10 @@ with placeholder.container():
 
 
         education = st.selectbox('Current education level* ', options = ['High school or below', 'Undergraduate degree', 'Graduate degree', 'Doctorate or above', 'Prefer not to say'], index=None)
-        
-        ses = st.radio('In terms of wealth, where would you place yourself in the socioeconomic ladder?*', options = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'Prefer not to say'], index = None, horizontal = True)
+        mum_education = st.selectbox('What was the highest level of education achieved by your mother?*', options = ['High school or below', 'Undergraduate degree', 'Graduate degree', 'Doctorate or above', 'Prefer not to say'], index=None)
+        dad_education = st.selectbox('What was the highest level of education achieved by your father?*', options = ['High school or below', 'Undergraduate degree', 'Graduate degree', 'Doctorate or above', 'Prefer not to say'], index=None)
+
+        ses = st.radio('Based on the picture below, where would you place yourself in the socioeconomic ladder in terms of wealth?*', options = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'Prefer not to say'], index = None, horizontal = True)
         st.image("scale.png", caption="Macarthur scale", width = 350)
        
         home = st.radio("Do you own or rent your home?*", ["Rent", "Own", "Other (Please specify)", "Prefer not to say"], index=None, horizontal=True)
@@ -109,10 +111,7 @@ with placeholder.container():
                                 'Student', 'Stay-at-home spouse or partner', 'Prefer not to say']
         
         employment = st.multiselect('What is your current employment status? You may select all that apply.*', placeholder=placeholder, options = employment_options)
-
-        mum_education = st.selectbox('What was the highest level of education achieved by your mother?*', options = ['High school or below', 'Undergraduate degree', 'Graduate degree', 'Doctorate or above', 'Prefer not to say'], index=None)
-        dad_education = st.selectbox('What was the highest level of education achieved by your father?*', options = ['High school or below', 'Undergraduate degree', 'Graduate degree', 'Doctorate or above', 'Prefer not to say'], index=None)
-
+        self_emplo = st.multiselect("What is/was your current occupation? You may select more than one.*", options = jobs, placeholder=placeholder)
         mother_occ = st.multiselect("What is/was your mother's occupation? You may select more than one.*", options = jobs, placeholder=placeholder)
         father_occ = st.multiselect("What is/was your father's occupation? You may select more than one.*", options = jobs, placeholder=placeholder)
 
@@ -151,7 +150,7 @@ with placeholder.container():
                 'Machine translation (e.g. translate Chinese or Russian into English, and vice versa)',
                 'Paraphrasing and Summarisation (i.e., automatically produce alternative descriptions of written text)',
                 'Question Answering & Search Engine. (e.g., browsers or ask questions to smart devices/assistants)',
-                'Dialog technology (e.g. chatbots that communicate with you)',
+                'Dialog technology (e.g. chatbots that communicate with you such as chatGPT)',
                 'Speech-to-Text (i.e. a computer transcribing your spoken language to written language)',
                 'Text-to-Speech (i.e, computers being able to read out loud written language)',
                  'Reading text from scanned documents (i.e. “Optical character recognition” or OCR. Given an image representing printed text, determine the corresponding text.)', 'Other (specify)']
@@ -227,7 +226,7 @@ with placeholder.container():
         # Every form must have a submit button.
         submitted = st.form_submit_button("Submit")#, on_click=populate_annotations)
         if submitted:
-            required = [gender, age, nationality, language, ethnicity,  marital, marital_free, language, language_free, religion, education, ses, home, home_free, employment, mum_education, dad_education, mother_occ, father_occ, hobbies,  tech, know_nlp, use_nlp, would_nlp, use_ai]
+            required = [gender, age, nationality, language, ethnicity,  marital, marital_free, language, language_free, religion, education, ses, home, home_free,  mum_education, dad_education, employment, self_emplo, mother_occ, father_occ, hobbies,  tech, know_nlp, use_nlp, would_nlp, use_ai]
             cond = [llm_use, usecases, contexts,  prompt1, prompt2, prompt3, prompt4, prompt5, prompt6, prompt7, prompt8, prompt9, prompt10]
             if None in required:
                 st.warning("Please complete all required fields in the form.")
