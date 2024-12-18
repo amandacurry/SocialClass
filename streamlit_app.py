@@ -8,7 +8,6 @@ from datetime import datetime
 from google.oauth2 import service_account
 from shillelagh.backends.apsw.db import connect
 import random
-import yaml
 
 st.set_page_config(
     page_title="Survey on LLM usage",
