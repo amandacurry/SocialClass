@@ -28,7 +28,7 @@ credentials = service_account.Credentials.from_service_account_info(
             st.secrets['connections']['gsheets'], 
             scopes=["https://www.googleapis.com/auth/spreadsheets",],)
 
-url = "https://docs.google.com/spreadsheets/d/16iSrvR4XTyZNYg27Ud-ycnzGIX4xOtLepnBU_fysMp8/edit?gid=0#gid=0" # dataset
+url = "https://docs.google.com/spreadsheets/d/1mHD3UA-zf6zSgChM8pQn1E7SENIGmBzxvXq-quFNImg/edit?usp=sharing" # dataset
 
 client=gspread.authorize(credentials)
 
