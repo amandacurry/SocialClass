@@ -141,7 +141,7 @@ with placeholder.container():
 
         st.write(instructions)
 
-        tech = st.multiselect('Which digital technologies do you have access to on a daily basis? Select all that apply.', placeholder=placeholder, options = ['Laptop', 'Smartphone', 'Tablet', 'Smartwatch', 'Other'])
+        tech = st.multiselect('Which digital technologies do you have access to on a daily basis? Select all that apply.*', placeholder=placeholder, options = ['Laptop', 'Smartphone', 'Tablet', 'Smartwatch', 'Other'])
         tech_other = st.text_input("If you selected 'Other', please specify which:", key = 'tech')
 
 
@@ -183,17 +183,17 @@ with placeholder.container():
         llms = ['Character.AI', 'ChatGPT', 'Claude', 'GitHub Copilot', 'Google Bard', 'Google Gemini', 'Grok', 'HuggingChat', 'Jasper', 'Meta Llama 2', 'Microsoft Bing AI', 'Pi', 'Poe', 'Perplexity', 'Snapchat My AI', 'Other', 'None of these']
 
         
-        know_nlp = st.multiselect("Which of the following language technologies have you heard about?", nlp, placeholder=placeholder)
+        know_nlp = st.multiselect("Which of the following language technologies have you heard about?*", nlp, placeholder=placeholder)
         know_other = st.text_input("If you selected 'Other', please specify which:", key = 'know')
 
-        use_nlp = st.multiselect("Which of the following language technologies have you used?", nlp, placeholder=placeholder)
+        use_nlp = st.multiselect("Which of the following language technologies have you used?*", nlp, placeholder=placeholder)
         use_nlp_other = st.text_input("If you selected 'Other', please specify which:", key = 'use_nlp')
 
-        would_nlp = st.multiselect("Below is a list of some common language technologies. Please check every one that you would find useful, but do not use because of scarce performance", nlp, placeholder=placeholder)
+        would_nlp = st.multiselect("Below is a list of some common language technologies. Please check every one that you would find useful, but do not use because of scarce performance*", nlp, placeholder=placeholder)
         would_other = st.text_input("If you selected 'Other', please specify which:", key = 'would')
 
 
-        use_ai = st.select_slider("How often do you use AI chatbots like chatGPT?", options=["Every day", "Nearly every day", "Sometimes", "Rarely", "Never"], value = None)
+        use_ai = st.select_slider("How often do you use AI chatbots like chatGPT?*", options=["Every day", "Nearly every day", "Sometimes", "Rarely", "Never"], value = None)
         #ai_other = st.text_input("If you selected 'Other', please specify which:", key = 'ai')
 
 
