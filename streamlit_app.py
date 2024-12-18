@@ -81,16 +81,16 @@ with placeholder.container():
         
         age = st.radio('Age*', ['18-24', '25-34' , '35-44', '45-54', '55-60', '60+'], None, key='_age', horizontal=True)
 
-        nationality = st.selectbox('Nationality*', options = countries, index = None)
+        nationality = st.multiselect('Nationality*', options = countries, placeholder=placeholder)
 
  
-        ethnicity = st.multiselect('What is your ethnicity? You may select more than one.*', options = ['American Indian or Alaskan Native', 'Asian / Pacific Islander', 'Black or African American', 'Hispanic', 'White / Caucasian', 'Multiple/Other. Please specify', 'Prefer not to say'], placeholder=placeholder)
+        ethnicity = st.multiselect('What is your ethnicity? You may select more than one.*', options = ['American Indian or Alaskan Native', 'Asian / Pacific Islander', 'Black or African American', 'Hispanic', 'White / Caucasian', 'Other. Please specify', 'Prefer not to say'], placeholder=placeholder)
         ethn_free = st.text_input('If you selected other, please specify:', key = 'ethnic')
 
         marital = st.radio('What is your marital status?*', options = ['Married', 'Cohabitating', 'Bereaved', 'Divorced', 'Single', 'Other (Please Specify)', 'Prefer not to say'], index=None, horizontal = True)
         marital_free = st.text_input('If you selected other, please specify:', key = 'mar')
 
-        language = st.selectbox('What is your first language?*', index=None, options = ['English', 'Spanish', 'German', 'Chinese', 'French', 'Arabic', 'Other (Please Specify)'])
+        language = st.multiselect('What is your first language?*', options = ['English', 'Spanish', 'German', 'Chinese', 'French', 'Arabic', 'Other (Please Specify)'], placeholder=placeholder)
         language_free = st.text_input('If you selected other, please specify:', key = 'lang')
 
         religion = st.selectbox('Do you have a religious affiliation? If so, which one?*', options = ['Christian', 'Muslim', 'Jewish',  'Buddhist', 'Other, please specify.', 'None', 'Prefer not to say'], index = None)
