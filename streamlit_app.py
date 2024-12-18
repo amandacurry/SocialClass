@@ -205,7 +205,7 @@ with placeholder.container():
         use_other = st.text_input("If you selected 'Other', please specify which:", key = 'use')
 
         contexts = st.multiselect("In which of the following contexts have you ever used ChatGPT (or other similar chatbots)? If you have never used them, leave blank.", ['Work', 'School/University', 'Entertainment', 'Learning', 'Personal', 'Creative or artistic', 'Technical', 'Other (specify)'], placeholder=placeholder_s)
-
+        contexts_other = st.text_input("If you selected 'Other', please specify which:", key = 'context')
         st.write("Next, we want to know more about the sorts of things you use AI for. Note that this form is anonymous -- we will not associate this information with your prolific ID. If you have never used them, leave blank.")
 
         st.write('Provide us with the last ten prompts you used for your chosen AI chatbot.')
@@ -233,7 +233,7 @@ with placeholder.container():
             elif use_ai == 'Never' and any(cond):
                 st.write('Only complete these sections if you have used AI chatbots.')
             else:
-                write_to_file([annotator_id, session_id, gender, age, ';'.join(nationality), ';'.join(language), language_free, ';'.join(ethnicity), ethn_free, marital, religion, religion_other, education, ses, home, ';'.join(employment), mum_education, dad_education, ';'.join(self_emplo), ';'.join(mother_occ), ';'.join(father_occ), ';'.join(hobbies), hobbies_other, ';'.join(tech), tech_other, ';'.join(know_nlp), ';'.join(use_nlp), ';'.join(would_nlp), ';'.join(use_ai), know_other, use_nlp_other, would_other, ';'.join(llm_use), llm_other, ''.join(usecases), use_other, ''.join(contexts),  prompt1, prompt2, prompt3, prompt4, prompt5, prompt6, prompt7, prompt8, prompt9, prompt10, comments], url)
+                write_to_file([annotator_id, session_id, gender, age, ';'.join(nationality), ';'.join(language), language_free, ';'.join(ethnicity), ethn_free, marital, religion, religion_other, education, ses, home, ';'.join(employment), mum_education, dad_education, ';'.join(self_emplo), ';'.join(mother_occ), ';'.join(father_occ), ';'.join(hobbies), hobbies_other, ';'.join(tech), tech_other, ';'.join(know_nlp), ';'.join(use_nlp), ';'.join(would_nlp), ';'.join(use_ai), know_other, use_nlp_other, would_other, ';'.join(llm_use), llm_other, ';'.join(usecases), use_other, ';'.join(contexts), contexts_other, prompt1, prompt2, prompt3, prompt4, prompt5, prompt6, prompt7, prompt8, prompt9, prompt10, comments], url)
                 placeholder.empty()
                 state.form_filled = True
 
