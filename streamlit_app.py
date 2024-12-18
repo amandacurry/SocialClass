@@ -73,7 +73,7 @@ with placeholder.container():
                 'Service and sales workers (whose who provide personal and protective services related to travel, housekeeping, catering, personal care, protection against fire and unlawful acts; or sell goods)', 'Skilled agricultural, forestry and fishery workers (those harvest, grow, breed, or produce a variety of animal husbandry products)', 'Craft related trades workers (those who produce or process foodstuffs, textiles, wooden, metal and other articles, including handicraft goods, and apply specific technical and practical knowledge and skills to construct and maintain buildings)', 
                 'Plant and machine operators, and assemblers (those who maintain, operate and monitor industrial and agricultural machinery and equipment)', 'Elementary occupations (jobs that involve simple and routine tasks which may require the use of hand-held tools and considerable physical effort)', 'Armed forces occupations (includes all jobs held by members of the armed forces)', 'Homemaker', 'Prefer not to say']
         
-        placeholder = "Select all that apply."
+        placeholder_s = "Select all that apply."
 
         gender = st.selectbox("Gender*", ("Male", "Female", "Non-binary", "Other, please specify.", "Prefer not to say"), index=None)
 
@@ -81,16 +81,16 @@ with placeholder.container():
         
         age = st.radio('Age*', ['18-24', '25-34' , '35-44', '45-54', '55-60', '60+'], None, key='_age', horizontal=True)
 
-        nationality = st.multiselect('Nationality (You may select multiple):*', options = countries, placeholder=placeholder)
+        nationality = st.multiselect('Nationality (You may select multiple):*', options = countries, placeholder=placeholder_s)
 
  
-        ethnicity = st.multiselect('What is your ethnicity? You may select more than one.*', options = ['American Indian or Alaskan Native', 'Asian / Pacific Islander', 'Black or African American', 'Hispanic', 'White / Caucasian', 'Other. Please specify', 'Prefer not to say'], placeholder=placeholder)
+        ethnicity = st.multiselect('What is your ethnicity? You may select more than one.*', options = ['American Indian or Alaskan Native', 'Asian / Pacific Islander', 'Black or African American', 'Hispanic', 'White / Caucasian', 'Other. Please specify', 'Prefer not to say'], placeholder=placeholder_s)
         ethn_free = st.text_input('If you selected other, please specify:', key = 'ethnic')
 
         marital = st.radio('What is your marital status?*', options = ['Married', 'Cohabitating', 'Bereaved', 'Divorced', 'Single', 'Other (Please Specify)', 'Prefer not to say'], index=None, horizontal = True)
         marital_free = st.text_input('If you selected other, please specify:', key = 'mar')
 
-        language = st.multiselect('What is your first language? You may select more than one, if applicable.*', options = ['English', 'Spanish', 'German', 'Chinese', 'French', 'Arabic', 'Other (Please Specify)'], placeholder=placeholder)
+        language = st.multiselect('What is your first language? You may select more than one, if applicable.*', options = ['English', 'Spanish', 'German', 'Chinese', 'French', 'Arabic', 'Other (Please Specify)'], placeholder=placeholder_s)
         language_free = st.text_input('If you selected other, please specify:', key = 'lang')
 
         religion = st.selectbox('Do you have a religious affiliation? If so, which one?*', options = ['Christian', 'Muslim', 'Jewish',  'Buddhist', 'Other, please specify.', 'None', 'Prefer not to say'], index = None)
@@ -111,15 +111,15 @@ with placeholder.container():
                                 'Student', 'Stay-at-home spouse or partner', 'Prefer not to say']
         
         employment = st.selectbox('What is your current employment status? You may select all that apply.*', index=None, options = employment_options)
-        self_emplo = st.multiselect("What is/was your current occupation? You may select more than one.*", options = jobs, placeholder=placeholder)
-        mother_occ = st.multiselect("What is/was your mother's occupation? You may select more than one.*", options = jobs, placeholder=placeholder)
-        father_occ = st.multiselect("What is/was your father's occupation? You may select more than one.*", options = jobs, placeholder=placeholder)
+        self_emplo = st.multiselect("What is/was your current occupation? You may select more than one.*", options = jobs, placeholder=placeholder_s)
+        mother_occ = st.multiselect("What is/was your mother's occupation? You may select more than one.*", options = jobs, placeholder=placeholder_s)
+        father_occ = st.multiselect("What is/was your father's occupation? You may select more than one.*", options = jobs, placeholder=placeholder_s)
 
 
         list_hobbies = ["Listen to jazz", "Listen to classical music", "Listen to rock/indie music", "Listen to hiphop and rap", "Go to gigs", 
                         "Go to the opera", "Visit to stately homes", "Exercise", "Use social media", "Go to museums and galleries", 
                         "Do arts and crafts", "Watch dance or ballet", "Attend football matches", "Watch sports", "Other (Please specify)"]
-        hobbies = st.multiselect("What sorts of things do you do in your free time? You may select more than one.*", list_hobbies, placeholder=placeholder)
+        hobbies = st.multiselect("What sorts of things do you do in your free time? You may select more than one.*", list_hobbies, placeholder=placeholder_s)
         hobbies_other = st.text_input('If you selected other, please specify:', key = 'hobbies')
 
         
@@ -140,7 +140,7 @@ with placeholder.container():
 
         st.write(instructions)
 
-        tech = st.multiselect('Which digital technologies do you have access to on a daily basis? Select all that apply.*', placeholder=placeholder, options = ['Laptop', 'Smartphone', 'Tablet', 'Smartwatch', 'Other'])
+        tech = st.multiselect('Which digital technologies do you have access to on a daily basis? Select all that apply.*', placeholder=placeholder_s, options = ['Laptop', 'Smartphone', 'Tablet', 'Smartwatch', 'Other'])
         tech_other = st.text_input("If you selected 'Other', please specify which:", key = 'tech')
 
 
@@ -182,13 +182,13 @@ with placeholder.container():
         llms = ['Character.AI', 'ChatGPT', 'Claude', 'GitHub Copilot', 'Google Bard', 'Google Gemini', 'Grok', 'HuggingChat', 'Jasper', 'Meta Llama 2', 'Microsoft Bing AI', 'Pi', 'Poe', 'Perplexity', 'Snapchat My AI', 'Other', 'None of these']
 
         
-        know_nlp = st.multiselect("Which of the following language technologies have you heard about?*", nlp, placeholder=placeholder)
+        know_nlp = st.multiselect("Which of the following language technologies have you heard about?*", nlp, placeholder=placeholder_s)
         know_other = st.text_input("If you selected 'Other', please specify which:", key = 'know')
 
-        use_nlp = st.multiselect("Which of the following language technologies have you used?*", nlp, placeholder=placeholder)
+        use_nlp = st.multiselect("Which of the following language technologies have you used?*", nlp, placeholder=placeholder_s)
         use_nlp_other = st.text_input("If you selected 'Other', please specify which:", key = 'use_nlp')
 
-        would_nlp = st.multiselect("Below is a list of some common language technologies. Please check every one that you would find useful, but do not use because of scarce performance*", nlp, placeholder=placeholder)
+        would_nlp = st.multiselect("Below is a list of some common language technologies. Please check every one that you would find useful, but do not use because of scarce performance*", nlp, placeholder=placeholder_s)
         would_other = st.text_input("If you selected 'Other', please specify which:", key = 'would')
 
 
@@ -196,15 +196,15 @@ with placeholder.container():
         #ai_other = st.text_input("If you selected 'Other', please specify which:", key = 'ai')
 
 
-        llm_use = st.multiselect('If you use them, which of these AI chatbots do you use? If you have never used them, leave blank.', llms, placeholder=placeholder)
+        llm_use = st.multiselect('If you use them, which of these AI chatbots do you use? If you have never used them, leave blank.', llms, placeholder=placeholder_s)
 
         llm_other = st.text_input("If you selected 'Other', please specify which:", key = 'llms')
         
-        usecases = st.multiselect("If you have used AI chatbots, have you ever them for any of the following? You can select multiple. If you have never used them, leave blank.", tasks, placeholder=placeholder)
+        usecases = st.multiselect("If you have used AI chatbots, have you ever them for any of the following? You can select multiple. If you have never used them, leave blank.", tasks, placeholder=placeholder_s)
         
         use_other = st.text_input("If you selected 'Other', please specify which:", key = 'use')
 
-        contexts = st.multiselect("In which of the following contexts have you ever used ChatGPT (or other similar chatbots)? If you have never used them, leave blank.", ['Work', 'School/University', 'Entertainment', 'Learning', 'Personal', 'Creative or artistic', 'Technical', 'Other (specify)'], placeholder=placeholder)
+        contexts = st.multiselect("In which of the following contexts have you ever used ChatGPT (or other similar chatbots)? If you have never used them, leave blank.", ['Work', 'School/University', 'Entertainment', 'Learning', 'Personal', 'Creative or artistic', 'Technical', 'Other (specify)'], placeholder=placeholder_s)
 
         st.write("Next, we want to know more about the sorts of things you use AI for. Note that this form is anonymous -- we will not associate this information with your prolific ID. If you have never used them, leave blank.")
 
