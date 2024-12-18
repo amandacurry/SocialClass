@@ -244,4 +244,4 @@ if state.form_filled:
         lines = f.read().splitlines()
         code = random.choice(lines)
         st.subheader("Thank you!")
-        st.write("Thank you very much for completing the task. You can now return to Prolific and enter the code **{}**.".format(code))
+        st.write("Thank you very much for completing the task. You can now return to Prolific and enter the code **{}**.".format('C116V1N5'))
