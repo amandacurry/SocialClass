@@ -232,9 +232,9 @@ with placeholder.container():
                 st.warning("Please complete all required fields in the form.")
             elif use_ai == 'Never' and any(cond):
                 st.write('Only complete these sections if you have used AI chatbots.')
-            elif use_ai == 'Every day' or use_ai ==  "Nearly every day" and (not prompt1 or not prompt2 or not prompt3 or not prompt5 or not prompt5):
+            elif use_ai == 'Every day' or use_ai ==  "Nearly every day" and (not prompt1 or not prompt2 or not prompt3 or not prompt5 or not prompt5 or prompt1=="" or prompt2=="" or prompt3=="" or prompt4=="" or prompt5==""):
                 st.write("Please provide at least five prompts. You will receive a bonus for each additional answer. Responses will be manually checked.")
-            elif use_ai == "Sometimes" and not prompt1:
+            elif use_ai == "Sometimes" and not prompt1 or prompt1=="":
                 st.write("Please provide an example of a prompt. You will receive a bonus for each additional answer. Responses will be manually checked.")
             else:
                 write_to_file([annotator_id, session_id, gender, age, ';'.join(nationality), ';'.join(language), language_free, ';'.join(ethnicity), ethn_free, marital, religion, religion_other, education, ses, home, home_free,  employment, mum_education, dad_education, ';'.join(self_emplo), ';'.join(mother_occ), ';'.join(father_occ), ';'.join(hobbies), hobbies_other, ';'.join(tech), tech_other, ';'.join(know_nlp), ';'.join(use_nlp), ';'.join(would_nlp), use_ai, know_other, use_nlp_other, would_other, ';'.join(llm_use), llm_other, ';'.join(usecases), use_other, ';'.join(contexts), contexts_other, prompt1, prompt2, prompt3, prompt4, prompt5, prompt6, prompt7, prompt8, prompt9, prompt10, comments], url)
