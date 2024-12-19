@@ -68,6 +68,7 @@ with placeholder.container():
 
         st.write('We are conducting research about the ways in which people of all backgrounds are using AI. To understand if there are differences in the ways different people are using AI chatbots and other technologies, we are running a survey. ')
         st.write('Any data published will be fully anonymised. ')
+        st.write('DO NOT PRESS ENTER TO MOVE TO THE NEXT SECTION OR THE FORM WILL SUBMIT!!!')
 
         jobs = ['Manager or business owner (those who plan, direct, coordinate and evaluate the overall activities of enterprises, governments and other organizations)', 'Professionals or highly skilled workers (those who increase the existing stock of knowledge or teach about it in a systematic manner, e.g. engineer, doctor, teacher, lawyer)', 'Technicians and associate professionals (those who apply scientific or artistic concepts and operational methods, e.g. secretaries, fitness workers, lab technicians)', 'Clerical support workers (those who perform clerical duties such as organizing, storing, computing and retrieving information)',
                 'Service and sales workers (whose who provide personal and protective services related to travel, housekeeping, catering, personal care, protection against fire and unlawful acts; or sell goods)', 'Skilled agricultural, forestry and fishery workers (those harvest, grow, breed, or produce a variety of animal husbandry products)', 'Craft related trades workers (those who produce or process foodstuffs, textiles, wooden, metal and other articles, including handicraft goods, and apply specific technical and practical knowledge and skills to construct and maintain buildings)', 
@@ -209,7 +210,7 @@ with placeholder.container():
         st.write("Next, we want to know more about the sorts of things you use AI for. Note that this form is anonymous -- we will not associate this information with your prolific ID. If you have never used them, leave blank.")
 
         st.write('If you can, please provide us with the last ten questions or requests you used for your chosen AI chatbot. Preferably, copy and paste the questions directly from the conversation. You will receive a bonus for each additional prompt you provide. Responses will be manually checked. ')
-
+        st.write('DO NOT PRESS ENTER TO MOVE TO THE NEXT FIELD OR THE FORM WILL SUBMIT!!!')
         prompt1 = st.text_input("Prompt:*", key = 'p1')
         prompt2 = st.text_input("Prompt*", key = 'p2')
         prompt3 = st.text_input("Prompt*", key = 'p3')
