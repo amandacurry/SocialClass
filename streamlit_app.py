@@ -225,6 +225,7 @@ with placeholder.container():
         # Every form must have a submit button.
         submitted = st.form_submit_button("Submit")#, on_click=populate_annotations)
         if submitted:
+            ''' 
             required = [gender, gender_other, age, nationality, language, ethnicity, ethn_free, marital, marital_free, language, language_free, religion, religion_other, education, ses, home,  mum_education, dad_education, employment, self_emplo, mother_occ, father_occ, hobbies,  tech, know_nlp, use_nlp, would_nlp, use_ai]
             cond = [llm_use, usecases, contexts,  prompt1, prompt2, prompt3, prompt4, prompt5, prompt6, prompt7, prompt8, prompt9, prompt10]
             if None in required:
@@ -234,12 +235,13 @@ with placeholder.container():
             elif use_ai == 'Every day' or use_ai ==  "Nearly every day" and (not prompt1 or not prompt2 or not prompt3 or not prompt5 or not prompt5 or prompt1=="" or prompt2=="" or prompt3=="" or prompt4=="" or prompt5==""):
                 st.write("Please provide at least five prompts. You will receive a bonus for each additional answer. Responses will be manually checked.")
             else:
-                demographic_information = [gender, gender_other, age, ';'.join(nationality), ';'.join(ethnicity), ethn_free,marital, marital_free,language,  language_free, religion, religion_other, education, mum_education, dad_education, ses, home, home_free, employment_options, employment, ';'.join(self_emplo), ';'.join(mother_occ), ';'.join(father_occ), ';'.join(hobbies), hobbies_other]
-                tech_information = [';'.join(tech), tech_other, ';'.join(know_nlp), know_other, ';'.join(use_nlp), use_nlp_other, ';'.join(would_nlp), would_other, use_ai, ';'.join(llm_use), llm_other, ';'.join(usecases), use_other, ';'.join(contexts), contexts_other]
-                row = [annotator_id, session_id] + demographic_information + tech_information + [prompt1, prompt2, prompt3, prompt4, prompt5, prompt6, prompt7, prompt8, prompt9, prompt10, comments]
-                write_to_file(row, url)
-                placeholder.empty()
-                state.form_filled = True
+            '''   
+            demographic_information = [gender, gender_other, age, ';'.join(nationality), ';'.join(ethnicity), ethn_free,marital, marital_free,language,  language_free, religion, religion_other, education, mum_education, dad_education, ses, home, home_free, employment_options, employment, ';'.join(self_emplo), ';'.join(mother_occ), ';'.join(father_occ), ';'.join(hobbies), hobbies_other]
+            tech_information = [';'.join(tech), tech_other, ';'.join(know_nlp), know_other, ';'.join(use_nlp), use_nlp_other, ';'.join(would_nlp), would_other, use_ai, ';'.join(llm_use), llm_other, ';'.join(usecases), use_other, ';'.join(contexts), contexts_other]
+            row = [annotator_id, session_id] + demographic_information + tech_information + [prompt1, prompt2, prompt3, prompt4, prompt5, prompt6, prompt7, prompt8, prompt9, prompt10, comments]
+            write_to_file(row, url)
+            placeholder.empty()
+            state.form_filled = True
 
 
 
