@@ -224,7 +224,7 @@ with placeholder.container():
         submitted = st.form_submit_button("Submit")#, on_click=populate_annotations)
         if submitted:
             all_valid = True
-            required = [gender]#, age, nationality, language, ethnicity, marital,  language,  religion,  education, ses, home,  mum_education, dad_education, employment, self_emplo, mother_occ, father_occ, hobbies,  tech, know_nlp, use_nlp, would_nlp, use_ai]
+            required = [gender, age, nationality, language, ethnicity, marital,  language,  religion,  education, ses, home,  mum_education, dad_education, employment, self_emplo, mother_occ, father_occ, hobbies,  tech, know_nlp, use_nlp, would_nlp, use_ai]
             cond = [llm_use, usecases, contexts,  prompt1, prompt2, prompt3, prompt4, prompt5, prompt6, prompt7, prompt8, prompt9, prompt10]
 
             if any(field is None or field == "" for field in required):
@@ -246,7 +246,6 @@ with placeholder.container():
                     all_valid = False
                 # Check for at least 5 prompts
                 elif any(prompt is None or prompt.strip() == "" for prompt in prompts):
-                    st.write(llm_use)
                     st.warning("Please provide at least five prompts. You will receive a bonus for each additional answer. Responses will be manually checked.")
                     all_valid = False
 
@@ -271,33 +270,6 @@ with placeholder.container():
                 state.form_filled = True
 
 
-            '''
-            required = [gender, gender_other, age, nationality, language, ethnicity, ethn_free, marital, marital_free, language, language_free, religion, religion_other, education, ses, home,  mum_education, dad_education, employment, self_emplo, mother_occ, father_occ, hobbies,  tech, know_nlp, use_nlp, would_nlp, use_ai]
-            cond = [llm_use, usecases, contexts,  prompt1, prompt2, prompt3, prompt4, prompt5, prompt6, prompt7, prompt8, prompt9, prompt10]
-            if None in required:
-                st.warning("Please complete all required fields in the form.")
-                st.warning(submitted)
-            
-            if use_ai == 'Never' and any(cond):
-                st.warning('Only complete these sections if you have used AI chatbots.')
-                st.warning(submitted)
-            
-            if use_ai == 'Every day' or use_ai ==  "Nearly every day" and None in [llm_use, usecases, contexts]:
-                st.warning("Please fill in the sections about your use of AI")
-                st.warning(submitted)
-                submitted = False
-            elif use_ai == 'Every day' or use_ai ==  "Nearly every day" and (not prompt1 or not prompt2 or not prompt3 or not prompt5 or not prompt5 or prompt1=="" or prompt2=="" or prompt3=="" or prompt4=="" or prompt5=="" ):
-                st.warning("Please provide at least five prompts. You will receive a bonus for each additional answer. Responses will be manually checked.")
-                st.warning(submitted)
-                submitted = False
-            else:
-                demographic_information = [gender, gender_other, age, ';'.join(nationality), ';'.join(ethnicity), ethn_free,marital, marital_free, ';'.join(language),  language_free, religion, religion_other, education, mum_education, dad_education, ses, home, home_free, employment, ';'.join(self_emplo), ';'.join(mother_occ), ';'.join(father_occ), ';'.join(hobbies), hobbies_other]
-                tech_information = [';'.join(tech), tech_other, ';'.join(know_nlp), know_other, ';'.join(use_nlp), use_nlp_other, ';'.join(would_nlp), would_other, use_ai, ';'.join(llm_use), llm_other, ';'.join(usecases), use_other, ';'.join(contexts), contexts_other]
-                row = [annotator_id, session_id] + demographic_information + tech_information + [prompt1, prompt2, prompt3, prompt4, prompt5, prompt6, prompt7, prompt8, prompt9, prompt10, comments]
-                write_to_file(row, url)
-                placeholder.empty()
-                state.form_filled = True
-            '''
 
 
 if state.form_filled:
