@@ -83,7 +83,6 @@ with placeholder.container():
         age = st.radio('Age*', ['18-24', '25-34' , '35-44', '45-54', '55-60', '60+'], None, key='_age', horizontal=True)
 
         nationality = st.multiselect('Nationality (You may select multiple):*', options = countries, placeholder=placeholder_s)
-
  
         ethnicity = st.multiselect('What is your ethnicity? You may select more than one.*', options = ['American Indian or Alaskan Native', 'Asian / Pacific Islander', 'Black or African American', 'Hispanic', 'White / Caucasian', 'Other. Please specify', 'Prefer not to say'], placeholder=placeholder_s)
         ethn_free = st.text_input('If you selected other, please specify:', key = 'ethnic')
@@ -96,7 +95,6 @@ with placeholder.container():
 
         religion = st.selectbox('Do you have a religious affiliation? If so, which one?*', options = ['Christian', 'Muslim', 'Jewish',  'Buddhist', 'Other, please specify.', 'None', 'Prefer not to say'], index = None)
         religion_other = st.text_input('If you selected other, please specify:', key = 'religion')
-
 
         education = st.selectbox('Current education level* ', options = ['High school or below', 'Undergraduate degree', 'Graduate degree', 'Doctorate or above', 'Prefer not to say'], index=None)
         mum_education = st.selectbox('What was the highest level of education achieved by your mother?*', options = ['High school or below', 'Undergraduate degree', 'Graduate degree', 'Doctorate or above', 'Prefer not to say'], index=None)
@@ -124,7 +122,6 @@ with placeholder.container():
         hobbies_other = st.text_input('If you selected other, please specify:', key = 'hobbies')
 
         
-
 
         
         st.markdown('***')
@@ -209,6 +206,7 @@ with placeholder.container():
         contexts_other = st.text_input("If you selected 'Other', please specify which:", key = 'context')
         st.write("Next, we want to know more about the sorts of things you use AI for. Note that this form is anonymous -- we will not associate this information with your prolific ID. If you have never used them, leave blank.")
 
+
         st.write('If you can, please provide us with the last ten questions or requests you used for your chosen AI chatbot. Preferably, copy and paste the questions directly from the conversation. You will receive a bonus for each additional prompt you provide. Responses will be manually checked. ')
         st.write('DO NOT PRESS ENTER TO MOVE TO THE NEXT FIELD OR THE FORM WILL SUBMIT!!!')
         prompt1 = st.text_input("Prompt:*", key = 'p1')
@@ -227,7 +225,7 @@ with placeholder.container():
         # Every form must have a submit button.
         submitted = st.form_submit_button("Submit")#, on_click=populate_annotations)
         if submitted:
-            required = [gender, age, nationality, language, ethnicity,  marital, marital_free, language, language_free, religion, education, ses, home,  mum_education, dad_education, employment, self_emplo, mother_occ, father_occ, hobbies,  tech, know_nlp, use_nlp, would_nlp, use_ai]
+            required = [gender, gender_other, age, nationality, language, ethnicity, ethn_free, marital, marital_free, language, language_free, religion, religion_other, education, ses, home,  mum_education, dad_education, employment, self_emplo, mother_occ, father_occ, hobbies,  tech, know_nlp, use_nlp, would_nlp, use_ai]
             cond = [llm_use, usecases, contexts,  prompt1, prompt2, prompt3, prompt4, prompt5, prompt6, prompt7, prompt8, prompt9, prompt10]
             if None in required:
                 st.warning("Please complete all required fields in the form.")
@@ -238,7 +236,10 @@ with placeholder.container():
             elif use_ai == "Sometimes" and not prompt1 or prompt1=="":
                 st.write("Please provide an example of a prompt. You will receive a bonus for each additional answer. Responses will be manually checked.")
             else:
-                write_to_file([annotator_id, session_id, gender, age, ';'.join(nationality), ';'.join(language), language_free, ';'.join(ethnicity), ethn_free, marital, religion, religion_other, education, ses, home, home_free,  employment, mum_education, dad_education, ';'.join(self_emplo), ';'.join(mother_occ), ';'.join(father_occ), ';'.join(hobbies), hobbies_other, ';'.join(tech), tech_other, ';'.join(know_nlp), ';'.join(use_nlp), ';'.join(would_nlp), use_ai, know_other, use_nlp_other, would_other, ';'.join(llm_use), llm_other, ';'.join(usecases), use_other, ';'.join(contexts), contexts_other, prompt1, prompt2, prompt3, prompt4, prompt5, prompt6, prompt7, prompt8, prompt9, prompt10, comments], url)
+                demographic_information = [gender, gender_other, age, ';'.join(nationality), ';'.join(ethnicity), ethn_free,marital, marital_free,language,  language_free, religion, religion_other, education, mum_education, dad_education, ses, home, home_free, employment_options, employment, ';'.join(self_emplo), ';'.join(mother_occ), ';'.join(father_occ), ';'.join(hobbies), hobbies_other]
+                tech_information = [';'.join(tech), tech_other, ';'.join(know_nlp), know_other, ';'.join(use_nlp), use_nlp_other, ';'.join(would_nlp), would_other, use_ai, ';'.join(llm_use), llm_other, ';'.join(usecases), use_other, ';'.join(contexts), contexts_other]
+
+                write_to_file([annotator_id, session_id] + demographic_information + tech_information + [prompt1, prompt2, prompt3, prompt4, prompt5, prompt6, prompt7, prompt8, prompt9, prompt10, comments], url)
                 placeholder.empty()
                 state.form_filled = True
 
