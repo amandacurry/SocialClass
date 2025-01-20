@@ -246,6 +246,7 @@ with placeholder.container():
                     all_valid = False
                 # Check for at least 5 prompts
                 elif any(prompt is None or prompt.strip() == "" for prompt in prompts):
+                    st.write(llm_use)
                     st.warning("Please provide at least five prompts. You will receive a bonus for each additional answer. Responses will be manually checked.")
                     all_valid = False
 
