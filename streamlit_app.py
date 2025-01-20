@@ -35,7 +35,7 @@ countries = ['United States', 'United Kingdom', 'China', 'Canada', 'United Arab 
 def write_to_file(row, sheet_url):
     #sheet_url = collected_url #st.secrets["private_gsheets_url"] #this information should be included in streamlit secret
     sheet = client.open_by_url(sheet_url).sheet1
-    sheet.append_row(row, table_range="A1:AO1") 
+    sheet.append_row(row, table_range="A1:Z1") 
     #st.success('Data has been written to Google Sheets')
     
 
