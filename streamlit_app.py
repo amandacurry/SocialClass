@@ -234,11 +234,11 @@ with placeholder.container():
             elif use_ai == 'Every day' or use_ai ==  "Nearly every day" and None in [llm_use, usecases, contexts]:
                 st.warning("Please fill in the sections about your use of AI")
                 st.warning(submitted)
-                submitted = None
+                submitted = False
             elif use_ai == 'Every day' or use_ai ==  "Nearly every day" and (not prompt1 or not prompt2 or not prompt3 or not prompt5 or not prompt5 or prompt1=="" or prompt2=="" or prompt3=="" or prompt4=="" or prompt5=="" ):
                 st.warning("Please provide at least five prompts. You will receive a bonus for each additional answer. Responses will be manually checked.")
                 st.warning(submitted)
-                submitted = None
+                submitted = False
             else:
                 demographic_information = [gender, gender_other, age, ';'.join(nationality), ';'.join(ethnicity), ethn_free,marital, marital_free, ';'.join(language),  language_free, religion, religion_other, education, mum_education, dad_education, ses, home, home_free, employment, ';'.join(self_emplo), ';'.join(mother_occ), ';'.join(father_occ), ';'.join(hobbies), hobbies_other]
                 tech_information = [';'.join(tech), tech_other, ';'.join(know_nlp), know_other, ';'.join(use_nlp), use_nlp_other, ';'.join(would_nlp), would_other, use_ai, ';'.join(llm_use), llm_other, ';'.join(usecases), use_other, ';'.join(contexts), contexts_other]
