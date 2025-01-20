@@ -233,13 +233,11 @@ with placeholder.container():
                 st.write('Only complete these sections if you have used AI chatbots.')
             elif use_ai == 'Every day' or use_ai ==  "Nearly every day" and (not prompt1 or not prompt2 or not prompt3 or not prompt5 or not prompt5 or prompt1=="" or prompt2=="" or prompt3=="" or prompt4=="" or prompt5==""):
                 st.write("Please provide at least five prompts. You will receive a bonus for each additional answer. Responses will be manually checked.")
-            elif use_ai == "Sometimes" and not prompt1 or prompt1=="":
-                st.write("Please provide an example of a prompt. You will receive a bonus for each additional answer. Responses will be manually checked.")
             else:
                 demographic_information = [gender, gender_other, age, ';'.join(nationality), ';'.join(ethnicity), ethn_free,marital, marital_free,language,  language_free, religion, religion_other, education, mum_education, dad_education, ses, home, home_free, employment_options, employment, ';'.join(self_emplo), ';'.join(mother_occ), ';'.join(father_occ), ';'.join(hobbies), hobbies_other]
                 tech_information = [';'.join(tech), tech_other, ';'.join(know_nlp), know_other, ';'.join(use_nlp), use_nlp_other, ';'.join(would_nlp), would_other, use_ai, ';'.join(llm_use), llm_other, ';'.join(usecases), use_other, ';'.join(contexts), contexts_other]
-
-                write_to_file([annotator_id, session_id] + demographic_information + tech_information + [prompt1, prompt2, prompt3, prompt4, prompt5, prompt6, prompt7, prompt8, prompt9, prompt10, comments], url)
+                row = [annotator_id, session_id] + demographic_information + tech_information + [prompt1, prompt2, prompt3, prompt4, prompt5, prompt6, prompt7, prompt8, prompt9, prompt10, comments]
+                write_to_file(row, url)
                 placeholder.empty()
                 state.form_filled = True
 
