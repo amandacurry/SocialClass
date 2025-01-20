@@ -37,7 +37,7 @@ def write_to_file(row, sheet_url):
     sheet = client.open_by_url(sheet_url).sheet1
     #sheet.append_row({"age": 'amanda', "gender": 'emanuele'})
     #body #the values should be a list
-    sheet.append_row(row, table_range="A1:E1") 
+    sheet.append_row(row, table_range="A1:AO1") 
     #st.success('Data has been written to Google Sheets')
     
 
