@@ -267,7 +267,7 @@ with placeholder.container():
                     prompt1, prompt2, prompt3, prompt4, prompt5, prompt6, prompt7, prompt8, prompt9, prompt10, comments
                 ]
                 write_to_file(row, url)
-                #placeholder.empty()
+            
                 state.form_filled = True
 
 
@@ -301,5 +301,6 @@ with placeholder.container():
 
 
 if state.form_filled:
+    placeholder.empty()
     st.subheader("Thank you!")
     st.write("Thank you very much for completing the task. You can now return to Prolific and enter the code **{}**.".format('C116V1N5'))
