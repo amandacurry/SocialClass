@@ -224,7 +224,7 @@ with placeholder.container():
         submitted = st.form_submit_button("Submit")#, on_click=populate_annotations)
         if submitted:
             all_valid = True
-            required = [gender, gender_other, age, nationality, language, ethnicity, ethn_free, marital, marital_free, language, language_free, religion, religion_other, education, ses, home,  mum_education, dad_education, employment, self_emplo, mother_occ, father_occ, hobbies,  tech, know_nlp, use_nlp, would_nlp, use_ai]
+            required = [gender, age, nationality, language, ethnicity, marital,  language,  religion,  education, ses, home,  mum_education, dad_education, employment, self_emplo, mother_occ, father_occ, hobbies,  tech, know_nlp, use_nlp, would_nlp, use_ai]
             cond = [llm_use, usecases, contexts,  prompt1, prompt2, prompt3, prompt4, prompt5, prompt6, prompt7, prompt8, prompt9, prompt10]
 
             if any(field is None or field == "" for field in required):
