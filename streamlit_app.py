@@ -230,7 +230,7 @@ with placeholder.container():
                 st.warning("Please complete all required fields in the form.")
             elif use_ai == 'Never' and any(cond):
                 st.write('Only complete these sections if you have used AI chatbots.')
-            elif use_ai == 'Every day' or use_ai ==  "Nearly every day" and (not prompt1 or not prompt2 or not prompt3 or not prompt5 or not prompt5 or prompt1=="" or prompt2=="" or prompt3=="" or prompt4=="" or prompt5=="" or None in cond):
+            elif use_ai == 'Every day' or use_ai ==  "Nearly every day" and (not prompt1 or not prompt2 or not prompt3 or not prompt5 or not prompt5 or prompt1=="" or prompt2=="" or prompt3=="" or prompt4=="" or prompt5=="" or None in [llm_use, usecases, contexts]):
                 st.write("Please provide at least five prompts. You will receive a bonus for each additional answer. Responses will be manually checked.")
             else:
             
