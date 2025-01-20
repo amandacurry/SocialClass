@@ -239,10 +239,6 @@ with placeholder.container():
                 all_valid = False
             elif use_ai in ["Every day", "Nearly every day"]:
                 # Check additional required fields for frequent AI users
-                ai_required = [llm_use, usecases, contexts]
-                if any(field is None or field == "" for field in ai_required):
-                    st.warning("Please fill in the sections about your use of AI.")
-                    all_valid = False
                 # Check for at least 5 prompts
                 prompts = [prompt1, prompt2, prompt3, prompt4, prompt5]
                 if any(prompt is None or prompt.strip() == "" for prompt in prompts):
