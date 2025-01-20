@@ -237,13 +237,7 @@ with placeholder.container():
             if use_ai == "Never" and any(cond):
                 st.warning("Only complete these sections if you have used AI chatbots.")
                 all_valid = False
-            elif use_ai in ["Every day", "Nearly every day"]:
-                # Check additional required fields for frequent AI users
-                # Check for at least 5 prompts
-                prompts = [prompt1, prompt2, prompt3, prompt4, prompt5]
-                if any(prompt is None or prompt.strip() == "" for prompt in prompts):
-                    st.warning("Please provide at least five prompts. You will receive a bonus for each additional answer. Responses will be manually checked.")
-                    all_valid = False
+
 
             # Proceed if all validations pass
             if all_valid:
