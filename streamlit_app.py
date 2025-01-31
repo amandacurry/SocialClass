@@ -142,7 +142,7 @@ with placeholder.container():
 
 
         nlp = ['Spell checker (i.e., correcting misspellings)', 'Grammar checker (i.e., correcting grammar mistakes)', 'E-mail spam detection (i.e., automatically send spam e-mails to your Trash folder)',
-                'Sentiment analysis (e.g. automatically detect if user reviews are positive or negative)'
+                'Sentiment analysis (e.g. automatically detect if user reviews are positive or negative)',
                 'Machine translation (e.g. translate Chinese or Russian into English, and vice versa)',
                 'Paraphrasing and Summarisation (i.e., automatically produce alternative descriptions of written text)',
                 'Question Answering & Search Engine. (e.g., browsers or ask questions to smart devices/assistants)',
